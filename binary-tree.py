@@ -12,15 +12,28 @@ class Node:
         return f"Node({self.value}, left={bool(self.left)}, right={bool(self.right)})"
 
 def preorder_traverse(node, level=0):
-    """Pre-order traversal of all passed node and all its children."""
+    """Visit (do something) the current node before traversing the children."""
 
     if node is None:
         return
     
     print(f"{' '*2*level}{node.value}")
+
     level += 1
     preorder_traverse(node.left, level)
     preorder_traverse(node.right, level)
+
+def postorder_traverse(node, level=0):
+    """Visit (do something) the current node after traversing the children."""
+
+    if node is None:
+        return
+
+    level += 1
+    bottomup_traverse(node.left, level)
+    bottomup_traverse(node.right, level)
+
+    print(f"{' '*2*level}{node.value}") 
 
 # Hard to read ;-;
 #   +
@@ -32,4 +45,7 @@ def preorder_traverse(node, level=0):
 root_node = Node("+", Node("1"), Node("*", Node(2), Node(3)))
 print(root_node)
 
+# The reason for the naming is because 
+
 preorder_traverse(root_node)
+postorder_traverse(root_node)
