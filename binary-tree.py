@@ -11,13 +11,16 @@ class Node:
         # Node(+, left=Node(1, left=None, right=None), right=Node(*, left=Node(2, left=None, right=None), right=Node(3, left=None, right=None)))
         return f"Node({self.value}, left={bool(self.left)}, right={bool(self.right)})"
 
-def preorder_traverse(node):
+def preorder_traverse(node, level=0):
     """Pre-order traversal of all passed node and all its children."""
 
-    if node:
-        print(node.value)
-        preorder_traverse(node.left)
-        preorder_traverse(node.right)
+    if node is None:
+        return
+    
+    print(f"{' '*2*level}{node.value}")
+    level += 1
+    preorder_traverse(node.left, level)
+    preorder_traverse(node.right, level)
 
 # Hard to read ;-;
 #   +
