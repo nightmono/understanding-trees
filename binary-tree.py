@@ -11,28 +11,36 @@ class Node:
         # Node(+, left=Node(1, left=None, right=None), right=Node(*, left=Node(2, left=None, right=None), right=Node(3, left=None, right=None)))
         return f"Node({self.value}, left={bool(self.left)}, right={bool(self.right)})"
 
-def preorder_traverse(node, level=0):
+
+def print_tree_levels(node, level=0):
+    """Print tree nodes and their levels using preorder traversal."""
+
+    if node is None:
+        return
+    
+    print(f"{' '*2*level}{node.value}")
+    level += 1
+    print_tree_levels(node.left, level)
+    print_tree_levels(node.right, level)
+
+def preorder_traverse(node):
     """Visit (do something) the current node before traversing the children."""
 
     if node is None:
         return
     
     print(f"{' '*2*level}{node.value}")
+    preorder_traverse(node.left)
+    preorder_traverse(node.right)
 
-    level += 1
-    preorder_traverse(node.left, level)
-    preorder_traverse(node.right, level)
-
-def postorder_traverse(node, level=0):
+def postorder_traverse(node):
     """Visit (do something) the current node after traversing the children."""
 
     if node is None:
         return
 
-    level += 1
-    bottomup_traverse(node.left, level)
-    bottomup_traverse(node.right, level)
-
+    bottomup_traverse(node.left)
+    bottomup_traverse(node.right)
     print(f"{' '*2*level}{node.value}") 
 
 # Hard to read ;-;
@@ -44,8 +52,6 @@ def postorder_traverse(node, level=0):
 # I would like some way to display trees.
 root_node = Node("+", Node("1"), Node("*", Node(2), Node(3)))
 print(root_node)
-
-# The reason for the naming is because 
 
 preorder_traverse(root_node)
 postorder_traverse(root_node)
