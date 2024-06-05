@@ -76,7 +76,15 @@ def postorder_traverse(node: Node):
 #    / \
 #   2   3
 # I would like some way to display trees.
-root_node = Node("+", Node("1"), Node("*", Node(2), Node(3)))
+# root_node = Node("+", Node("1"), Node("*", Node("2"), Node("3")))
+# This looks neater.
+root_node = Node("+")
+root_node.left = Node("1")
+root_node.right = Node("*")
+root_node.right.left = Node("2")
+root_node.right.left = Node("3")
+
+print_tree_levels(root_node)
 
 print(preorder_traverse(root_node))
 print(postorder_traverse(root_node))
