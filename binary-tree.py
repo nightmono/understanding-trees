@@ -51,7 +51,7 @@ def preorder_traverse(node: Node):
 def postorder_traverse(node: Node):
     """Iterative post-order traversal."""
 
-    stack = []
+    stack: list[Node] = []
     last_visited_node: Node = None
     postfix = []
 
