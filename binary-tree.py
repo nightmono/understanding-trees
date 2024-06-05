@@ -23,14 +23,13 @@ def print_tree_levels(node, level=0):
     print_tree_levels(node.left, level)
     print_tree_levels(node.right, level)
 
-def preorder_traverse_recursive(node):
-    """Visit (do something) the current node before traversing the children."""
-
+def postorder_travese_recursive(node: Node, postfix_list: list):
     if node is None:
         return
 
-    preorder_traverse_recursive(node.left)
-    preorder_traverse_recursive(node.right)
+    postorder_travese_recursive(node.left, postfix_list)
+    postorder_travese_recursive(node.right, postfix_list)
+    postfix_list.append(node.value)
 
 def preorder_traverse(node: Node):
     """Iterative pre-order traversal."""
@@ -81,3 +80,7 @@ root_node = Node("+", Node("1"), Node("*", Node(2), Node(3)))
 
 print(preorder_traverse(root_node))
 print(postorder_traverse(root_node))
+
+the_list = []
+postorder_travese_recursive(root_node, the_list)
+print(the_list)
