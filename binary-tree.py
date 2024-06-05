@@ -82,7 +82,7 @@ root_node = Node("+")
 root_node.left = Node("1")
 root_node.right = Node("*")
 root_node.right.left = Node("2")
-root_node.right.left = Node("3")
+root_node.right.right = Node("3")
 
 print_tree_levels(root_node)
 
