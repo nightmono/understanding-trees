@@ -3,7 +3,7 @@ class Node:
         self.value = value
         self.left = left
         self.right = right
-    
+
     def __repr__(self):
         # The reason why I'm using passing the children into bool is because the
         # __repr__ would be recursive otherwise.
@@ -17,31 +17,58 @@ def print_tree_levels(node, level=0):
 
     if node is None:
         return
-    
+
     print(f"{' '*2*level}{node.value}")
     level += 1
     print_tree_levels(node.left, level)
     print_tree_levels(node.right, level)
 
-def preorder_traverse(node):
+def preorder_traverse_recursive(node):
     """Visit (do something) the current node before traversing the children."""
 
     if node is None:
         return
-    
-    print(f"{' '*2*level}{node.value}")
-    preorder_traverse(node.left)
-    preorder_traverse(node.right)
 
-def postorder_traverse(node):
-    """Visit (do something) the current node after traversing the children."""
+    preorder_traverse_recursive(node.left)
+    preorder_traverse_recursive(node.right)
 
-    if node is None:
-        return
+def preorder_traverse(node: Node):
+    """Iterative pre-order traversal."""
 
-    bottomup_traverse(node.left)
-    bottomup_traverse(node.right)
-    print(f"{' '*2*level}{node.value}") 
+    stack = [node]
+    prefix = []
+
+    while stack:
+        node = stack.pop()
+        prefix.append(node.value)
+        # Push right child first so we pop (visit) the left node first
+        if node.right:
+            stack.append(node.right)
+        if node.left:
+            stack.append(node.left)
+
+    return prefix
+
+def postorder_traverse(node: Node):
+    """Iterative post-order traversal."""
+
+    stack = []
+    last_visited_node: Node = None
+    postfix = []
+
+    while stack or node:
+        if node:
+            stack.append(node)
+            node = node.left
+        else:
+            peek_node = stack[-1]
+            if peek_node.right and peek_node.right != last_visited_node:
+                node = peek_node.right
+            else:
+                postfix.append(peek_node.value)
+                last_visited_node = stack.pop()
+
+    return postfix
 
 # Hard to read ;-;
 #   +
@@ -51,7 +78,6 @@ def postorder_traverse(node):
 #   2   3
 # I would like some way to display trees.
 root_node = Node("+", Node("1"), Node("*", Node(2), Node(3)))
-print(root_node)
 
-preorder_traverse(root_node)
-postorder_traverse(root_node)
+print(preorder_traverse(root_node))
+print(postorder_traverse(root_node))
