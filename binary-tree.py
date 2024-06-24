@@ -1,6 +1,6 @@
 class Node:
-    def __init__(self, value=None, left=None, right=None):
-        self.value = value
+    def __init__(self, val=None, left=None, right=None):
+        self.val = val
         self.left = left
         self.right = right
 
@@ -9,19 +9,7 @@ class Node:
         # __repr__ would be recursive otherwise.
         # And look like this:
         # Node(+, left=Node(1, left=None, right=None), right=Node(*, left=Node(2, left=None, right=None), right=Node(3, left=None, right=None)))
-        return f"Node({self.value}, left={bool(self.left)}, right={bool(self.right)})"
-
-
-def print_tree_levels(node, level=0):
-    """Print tree nodes and their levels using preorder traversal."""
-
-    if node is None:
-        return
-
-    print(f"{' '*2*level}{node.value}")
-    level += 1
-    print_tree_levels(node.left, level)
-    print_tree_levels(node.right, level)
+        return f"Node({self.val}, left={bool(self.left)}, right={bool(self.right)})"
 
 def postorder_travese_recursive(node: Node, postfix_list: list):
     if node is None:
@@ -29,7 +17,7 @@ def postorder_travese_recursive(node: Node, postfix_list: list):
 
     postorder_travese_recursive(node.left, postfix_list)
     postorder_travese_recursive(node.right, postfix_list)
-    postfix_list.append(node.value)
+    postfix_list.append(node.val)
 
 def preorder_traverse(node: Node):
     """Iterative pre-order traversal."""
@@ -39,7 +27,7 @@ def preorder_traverse(node: Node):
 
     while stack:
         node = stack.pop()
-        prefix.append(node.value)
+        prefix.append(node.val)
         # Push right child first so we pop (visit) the left node first
         if node.right:
             stack.append(node.right)
@@ -64,10 +52,17 @@ def postorder_traverse(node: Node):
             if peek_node.right and peek_node.right != last_visited_node:
                 node = peek_node.right
             else:
-                postfix.append(peek_node.value)
+                postfix.append(peek_node.val)
                 last_visited_node = stack.pop()
 
     return postfix
+
+def print_tree(node, level=0, prefix=""):
+    if node != None:
+        # Print right node first so tree is correctly rotated by -90 degrees.
+        print_tree(node.right, level + 1, "/ ")
+        print(" " * 3 * level + prefix + str(node.val))
+        print_tree(node.left, level + 1, "\\ ")
 
 # Hard to read ;-;
 #   +
@@ -84,7 +79,7 @@ root_node.right = Node("*")
 root_node.right.left = Node("2")
 root_node.right.right = Node("3")
 
-print_tree_levels(root_node)
+print_tree(root_node)
 
 print(preorder_traverse(root_node))
 print(postorder_traverse(root_node))

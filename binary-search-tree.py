@@ -13,6 +13,13 @@ def insert_value(node, val):
         node.right = insert_value(node.right, val)
     return node
 
+# Taken from `binary-tree.py`.
+def print_tree(node, level=0, prefix=""):
+    if node != None:
+        print_tree(node.right, level + 1, "/ ")
+        print(" " * 3 * level + prefix + str(node.val))
+        print_tree(node.left, level + 1, "\\ ")
+
 def main():
     root_node = Node(5)
     insert_value(root_node, 3)
@@ -20,6 +27,8 @@ def main():
     insert_value(root_node, 2)
     insert_value(root_node, 7)
     insert_value(root_node, 3)
+    
+    print_tree(root_node)
 
 if __name__ == "__main__":
     main()
