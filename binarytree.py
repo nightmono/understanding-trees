@@ -57,11 +57,11 @@ def postorder_traverse(node: Node):
 
     return postfix
 
-def print_tree(node, level=0, prefix=""):
+def print_tree(node, level=0, prefix="  "):
     if node != None:
         # Print right node first so tree is correctly rotated by -90 degrees.
         print_tree(node.right, level + 1, "/ ")
-        print(" " * 3 * level + prefix + str(node.val))
+        print(".    " * level + prefix + str(node.val))
         print_tree(node.left, level + 1, "\\ ")
 
 def main():
