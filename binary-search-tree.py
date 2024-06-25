@@ -1,8 +1,4 @@
-class Node:
-    def __init__(self, val=None, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+from binarytree import print_tree, Node
 
 def insert_value(node, val):
     if node is None:
@@ -12,13 +8,6 @@ def insert_value(node, val):
     else:
         node.right = insert_value(node.right, val)
     return node
-
-# Taken from `binary-tree.py`.
-def print_tree(node, level=0, prefix=""):
-    if node != None:
-        print_tree(node.right, level + 1, "/ ")
-        print(" " * 3 * level + prefix + str(node.val))
-        print_tree(node.left, level + 1, "\\ ")
 
 def main():
     root_node = Node(5)

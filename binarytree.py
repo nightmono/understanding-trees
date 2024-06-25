@@ -64,26 +64,30 @@ def print_tree(node, level=0, prefix=""):
         print(" " * 3 * level + prefix + str(node.val))
         print_tree(node.left, level + 1, "\\ ")
 
-# Hard to read ;-;
-#   +
-#  / \
-# 1   *
-#    / \
-#   2   3
-# I would like some way to display trees.
-# root_node = Node("+", Node("1"), Node("*", Node("2"), Node("3")))
-# This looks neater.
-root_node = Node("+")
-root_node.left = Node("1")
-root_node.right = Node("*")
-root_node.right.left = Node("2")
-root_node.right.right = Node("3")
+def main():
+    # Hard to read ;-;
+    #   +
+    #  / \
+    # 1   *
+    #    / \
+    #   2   3
+    # I would like some way to display trees.
+    # root_node = Node("+", Node("1"), Node("*", Node("2"), Node("3")))
+    # This looks neater.
+    root_node = Node("+")
+    root_node.left = Node("1")
+    root_node.right = Node("*")
+    root_node.right.left = Node("2")
+    root_node.right.right = Node("3")
 
-print_tree(root_node)
+    print_tree(root_node)
 
-print(preorder_traverse(root_node))
-print(postorder_traverse(root_node))
+    print(preorder_traverse(root_node))
+    print(postorder_traverse(root_node))
 
-the_list = []
-postorder_travese_recursive(root_node, the_list)
-print(the_list)
+    the_list = []
+    postorder_travese_recursive(root_node, the_list)
+    print(the_list)
+
+if __name__ == "__main__":
+    main()
