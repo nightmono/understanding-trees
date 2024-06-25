@@ -10,12 +10,14 @@ def insert_value(node, val):
     return node
 
 def main():
-    root_node = Node(5)
-    insert_value(root_node, 3)
-    insert_value(root_node, 6)
-    insert_value(root_node, 2)
-    insert_value(root_node, 7)
-    insert_value(root_node, 3)
+    import random
+    
+    nums = [i for i in range(20)]
+    random.shuffle(nums)
+    
+    root_node = Node(nums[0])
+    for i in range(1, len(nums)):
+        insert_value(root_node, nums[i])
     
     print_tree(root_node)
 
